@@ -1,3 +1,2 @@
-2025/03/31-08:35:42.680 29dc Reusing MANIFEST C:\Users\Arthur Ribeiro\Desktop\chatbot\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
-2025/03/31-08:35:42.681 29dc Recovering log #3
-2025/03/31-08:35:42.681 29dc Reusing old log C:\Users\Arthur Ribeiro\Desktop\chatbot\.wwebjs_auth\session\Default\Session Storage/000003.log 
+2025/03/31-09:05:58.940 6f94 Creating DB C:\Users\Arthur Ribeiro\Desktop\chatbot\.wwebjs_auth\session\Default\Session Storage since it was missing.
+2025/03/31-09:05:58.943 6f94 Reusing MANIFEST C:\Users\Arthur Ribeiro\Desktop\chatbot\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
