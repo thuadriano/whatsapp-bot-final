@@ -17,7 +17,7 @@ const client = new Client({
 // Geração do QR Code (salva como imagem)
 client.on('qr', async (qr) => {
     console.log('🔄 Novo QR Code gerado!');
-    await qrcode.toFile('./public/qr.png', qr); // Salva como imagem para exibir em /qr.html
+    await qrcode.toFile('./public/qr.png', qr);
 });
 
 // Sessão autenticada com sucesso
@@ -80,8 +80,8 @@ app.get('/', (req, res) => {
     res.send('🤖 Bot WhatsApp está rodando! Acesse <a href="/qr.html">/qr.html</a> para escanear o QR Code.');
 });
 
-// Inicia servidor web
-const PORT = process.env.PORT || 3000;
+// Inicia servidor web na porta que o Render exigir
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`🌐 Acesse http://localhost:${PORT}/qr.html para escanear o QR Code`);
 });
