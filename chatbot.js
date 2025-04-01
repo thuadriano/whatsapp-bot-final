@@ -1,42 +1,31 @@
 // Importações
-const qrcode = require('qrcode-terminal');
+const qrcode = require('qrcode');
+const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const { Client, LocalAuth } = require('whatsapp-web.js');
 
-// Cliente com configuração compatível com Render
+// Inicialização do Express
+const app = express();
+app.use(express.static(path.join(__dirname, 'public'))); // Servir arquivos estáticos como o QR
+
+// Inicialização do cliente WhatsApp com autenticação persistente
 const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    }
+    authStrategy: new LocalAuth()
 });
 
-const QRCode = require('qrcode');
-client.on('qr', qr => {
-    QRCode.toDataURL(qr, (err, url) => {
-        if (err) return console.error('Erro ao gerar QR Code:', err);
-        
-        const html = `
-        <html>
-        <body>
-            <h1>Escaneie o QR Code</h1>
-            <img src="${url}" />
-        </body>
-        </html>`;
-
-        require('fs').writeFileSync('qr.html', html);
-        console.log('✅ QR Code gerado em qr.html. Abra o arquivo no navegador!');
-    });
+// Geração do QR Code (salva como imagem)
+client.on('qr', async (qr) => {
+    console.log('🔄 Novo QR Code gerado!');
+    await qrcode.toFile('./public/qr.png', qr); // Salva imagem
 });
 
-
-// Salva a sessão quando autenticado
-client.on('authenticated', (session) => {
+// Sessão autenticada com sucesso
+client.on('authenticated', () => {
     console.log('✅ Sessão autenticada! Salvando...');
 });
 
-// Conectado com sucesso
+// Pronto para uso
 client.on('ready', () => {
     console.log('✅ WhatsApp conectado e pronto!');
 });
@@ -44,10 +33,10 @@ client.on('ready', () => {
 // Inicializa o cliente
 client.initialize();
 
-// Delay simulado
+// Delay artificial para simular digitação
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-// Funil de mensagens
+// Funil de atendimento por mensagem
 client.on('message', async msg => {
     if (msg.body.match(/(mentoria|consultoria|investimentos)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
@@ -55,51 +44,41 @@ client.on('message', async msg => {
         await chat.sendStateTyping();
         await delay(3000);
         const contact = await msg.getContact();
-        const name = contact.pushname;
-        await client.sendMessage(msg.from, `Olá! ${name?.split(" ")[0] || ''}.\n\nSou o assistente virtual da CripThu Treinamentos. Como posso ajudá-lo hoje? Por favor, digite uma das opções abaixo:\n\n1 - Como funciona a consultoria\n2 - Cursos/Mentorias\n3 - Outro Assuntos`);
+        const name = contact.pushname || 'investidor';
+        await client.sendMessage(msg.from, `Olá! ${name.split(" ")[0]}.\n\nSou o assistente virtual da CripThu Treinamentos. Como posso ajudá-lo hoje? Por favor, digite uma das opções abaixo:\n\n1 - Como funciona a consultoria\n2 - Cursos/Mentorias\n3 - Outro Assuntos`);
     }
 
     if (msg.body === '1' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, 'A consultoria de investimentos funciona de acordo com a sua demanda!\n\nE com isso eu te ajudo da melhor forma');
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, 'Por exemplo, montagem de carteira, configuração de hardwallets, aulas de investimento particulares, dúvidas sobre corretoras, negociação sem KYC… e outros casos (esses são alguns dos mais comuns)');
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, 'A consultoria funciona por hora, sendo a primeira hora fechada (valor integral) e posteriormente o valor é cobrado de acordo com a fração da hora em questão\n\nA hora de consultoria é R$300,00');
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, '👉 Importante ressaltar que consultoria não é curso!\n\nConsultoria eu irei ficar em uma vídeo conferência com você particular para solucionar seu problema diretamente, de forma individual e personalizada');
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, 'Me conta aí, qual a sua demanda? Escreva o mais detalhado e assim que possível responderei pessoalmente para agendarmos uma reunião!');
     }
 
     if (msg.body === '2' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, '*Atualmente não possuo Vagas Abertas para Cursos/Mentorias.*\n\nTodas as minhas operações e ensinamentos passo diariamente Ao Vivo no YouTube e Instagram!\n\nDe Segunda à Sexta às 11:30!');
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, 'Veja mais detalhes nas minhas redes sociais: https://linklist.bio/cripthu');
     }
 
     if (msg.body === '3' && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         await client.sendMessage(msg.from, 'Me fale mais detalhes aqui por aqui, e assim que possível irei responder pessoalmente à sua dúvida!');
     }
+});
+
+// Roda o servidor local para visualização do QR
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🌐 Acesse http://localhost:${PORT}/qr.html para escanear o QR Code`);
 });
