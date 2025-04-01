@@ -7,7 +7,7 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 
 // Inicialização do Express
 const app = express();
-app.use(express.static(path.join(__dirname, 'public'))); // Servir arquivos estáticos como o QR
+app.use(express.static(path.join(__dirname, 'public'))); // Serve arquivos estáticos como qr.html e qr.png
 
 // Inicialização do cliente WhatsApp com autenticação persistente
 const client = new Client({
@@ -17,7 +17,7 @@ const client = new Client({
 // Geração do QR Code (salva como imagem)
 client.on('qr', async (qr) => {
     console.log('🔄 Novo QR Code gerado!');
-    await qrcode.toFile('./public/qr.png', qr); // Salva imagem
+    await qrcode.toFile('./public/qr.png', qr); // Salva como imagem para exibir em /qr.html
 });
 
 // Sessão autenticada com sucesso
@@ -25,24 +25,22 @@ client.on('authenticated', () => {
     console.log('✅ Sessão autenticada! Salvando...');
 });
 
-// Pronto para uso
+// Cliente pronto para uso
 client.on('ready', () => {
     console.log('✅ WhatsApp conectado e pronto!');
 });
 
-// Inicializa o cliente
+// Inicializa o cliente WhatsApp
 client.initialize();
 
-// Delay artificial para simular digitação
+// Função de delay artificial
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-// Funil de atendimento por mensagem
+// Funil de mensagens automáticas
 client.on('message', async msg => {
     if (msg.body.match(/(mentoria|consultoria|investimentos)/i) && msg.from.endsWith('@c.us')) {
         const chat = await msg.getChat();
-        await delay(3000);
-        await chat.sendStateTyping();
-        await delay(3000);
+        await delay(3000); await chat.sendStateTyping(); await delay(3000);
         const contact = await msg.getContact();
         const name = contact.pushname || 'investidor';
         await client.sendMessage(msg.from, `Olá! ${name.split(" ")[0]}.\n\nSou o assistente virtual da CripThu Treinamentos. Como posso ajudá-lo hoje? Por favor, digite uma das opções abaixo:\n\n1 - Como funciona a consultoria\n2 - Cursos/Mentorias\n3 - Outro Assuntos`);
@@ -77,7 +75,12 @@ client.on('message', async msg => {
     }
 });
 
-// Roda o servidor local para visualização do QR
+// Rota raiz amigável
+app.get('/', (req, res) => {
+    res.send('🤖 Bot WhatsApp está rodando! Acesse <a href="/qr.html">/qr.html</a> para escanear o QR Code.');
+});
+
+// Inicia servidor web
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🌐 Acesse http://localhost:${PORT}/qr.html para escanear o QR Code`);
