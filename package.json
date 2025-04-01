@@ -6,11 +6,15 @@
     "start": "node chatbot.js"
   },
   "dependencies": {
-    "whatsapp-web.js": "^1.21.1",
-    "qrcode-terminal": "^0.12.0"
+    "fs": "^0.0.1-security"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "puppeteer": "^24.5.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.27.0"
+  }
 }

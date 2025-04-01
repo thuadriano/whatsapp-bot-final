@@ -1,3 +1,2 @@
-2025/04/01-14:49:14.357 574 Reusing MANIFEST C:\Projetos\chatbot\.wwebjs_auth\session\Default\Service Worker\Database/MANIFEST-000001
-2025/04/01-14:49:14.357 574 Recovering log #3
-2025/04/01-14:49:14.357 574 Reusing old log C:\Projetos\chatbot\.wwebjs_auth\session\Default\Service Worker\Database/000003.log 
+2025/04/01-15:07:21.100 65dc Creating DB C:\Projetos\chatbot\.wwebjs_auth\session\Default\Service Worker\Database since it was missing.
+2025/04/01-15:07:21.103 65dc Reusing MANIFEST C:\Projetos\chatbot\.wwebjs_auth\session\Default\Service Worker\Database/MANIFEST-000001

@@ -1,3 +1,2 @@
-2025/04/01-14:49:14.352 87dc Reusing MANIFEST C:\Projetos\chatbot\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
-2025/04/01-14:49:14.352 87dc Recovering log #3
-2025/04/01-14:49:14.352 87dc Reusing old log C:\Projetos\chatbot\.wwebjs_auth\session\Default\Local Storage\leveldb/000003.log 
+2025/04/01-15:07:15.585 a040 Creating DB C:\Projetos\chatbot\.wwebjs_auth\session\Default\Local Storage\leveldb since it was missing.
+2025/04/01-15:07:15.589 a040 Reusing MANIFEST C:\Projetos\chatbot\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
