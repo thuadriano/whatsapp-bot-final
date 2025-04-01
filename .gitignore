@@ -1,39 +1,24 @@
-# 📦 Node.js dependencies
+# Ignorar node_modules e dependências
 node_modules/
+package-lock.json
 
-# 🔐 Arquivos de sessão do WhatsApp (NÃO subir)
+# Ignorar arquivos de log
+*.log
+npm-debug.log*
+
+# Ignorar arquivos de build temporários
+dist/
+build/
+
+# Ignorar configurações locais
+.env
+.vscode/
+.railway/
+
+# Ignorar cache e sessão
 .wwebjs_auth/
 .wwebjs_cache/
 session.json
 
-# 📷 QR Code gerado
-public/qr.png
-
-# 🪵 Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# 💻 Arquivos do sistema operacional
-.DS_Store
-Thumbs.db
-
-# 🧪 Arquivos de teste e coverage
-coverage/
-dist/
-build/
-
-# 🧪 Ambientes
-.env
-.env.local
-.env.*.local
-
-# 💻 Configurações de editores/IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# 🚂 Railway ou Render configs locais
-.railway/
+# Ignorar QR code gerado
+/public/qr.png
