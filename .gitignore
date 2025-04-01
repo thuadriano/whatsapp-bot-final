@@ -1,24 +1,25 @@
-# Ignorar node_modules e dependências
+# Ignora dependências
 node_modules/
-package-lock.json
+npm-debug.log
+yarn-error.log
 
-# Ignorar arquivos de log
+# Ignora configurações locais e de ambiente
+.env
+*.env
+*.local
 *.log
-npm-debug.log*
 
-# Ignorar arquivos de build temporários
+# Ignora arquivos do WhatsApp Web.js (sessão, cache, etc)
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Ignora imagem gerada do QR code
+/public/qr.png
+
+# Ignora pasta de build (caso use futuramente)
 dist/
 build/
 
-# Ignorar configurações locais
-.env
-.vscode/
-.railway/
-
-# Ignorar cache e sessão
-.wwebjs_auth/
-.wwebjs_cache/
-session.json
-
-# Ignorar QR code gerado
-/public/qr.png
+# Ignora arquivos do sistema
+.DS_Store
+Thumbs.db
