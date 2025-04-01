@@ -1,24 +1,36 @@
+// Importações
 const qrcode = require('qrcode-terminal');
-const { Client, LocalAuth, Buttons, List, MessageMedia } = require('whatsapp-web.js');
+const fs = require('fs');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 
+// Cliente com configuração compatível com Render
 const client = new Client({
-    authStrategy: new LocalAuth()
+    authStrategy: new LocalAuth(),
+    puppeteer: {
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    }
 });
 
+// Exibe o QR Code se necessário
 client.on('qr', qr => {
     qrcode.generate(qr, { small: true });
 });
 
-client.on('authenticated', () => {
-    console.log('✅ Sessão autenticada! Salvando com LocalAuth...');
+// Salva a sessão quando autenticado
+client.on('authenticated', (session) => {
+    console.log('✅ Sessão autenticada! Salvando...');
 });
 
+// Conectado com sucesso
 client.on('ready', () => {
     console.log('✅ WhatsApp conectado e pronto!');
 });
 
+// Inicializa o cliente
 client.initialize();
 
+// Delay simulado
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 // Funil de mensagens
@@ -30,7 +42,7 @@ client.on('message', async msg => {
         await delay(3000);
         const contact = await msg.getContact();
         const name = contact.pushname;
-        await client.sendMessage(msg.from, 'Olá! ' + name.split(" ")[0] + '.\n\nSou o assistente virtual da CripThu Treinamentos. Como posso ajudá-lo hoje? Por favor, digite uma das opções abaixo:\n\n1 - Como funciona a consultoria\n2 - Cursos/Mentorias\n3 - Outro Assuntos');
+        await client.sendMessage(msg.from, `Olá! ${name?.split(" ")[0] || ''}.\n\nSou o assistente virtual da CripThu Treinamentos. Como posso ajudá-lo hoje? Por favor, digite uma das opções abaixo:\n\n1 - Como funciona a consultoria\n2 - Cursos/Mentorias\n3 - Outro Assuntos`);
     }
 
     if (msg.body === '1' && msg.from.endsWith('@c.us')) {

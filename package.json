@@ -1,20 +1,15 @@
 {
   "name": "whatsapp-chatbot",
   "version": "1.0.0",
+  "description": "Bot do WhatsApp automatizado para responder clientes",
   "main": "chatbot.js",
   "scripts": {
     "start": "node chatbot.js"
   },
+  "author": "Thu Adriano",
+  "license": "MIT",
   "dependencies": {
-    "fs": "^0.0.1-security"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "puppeteer": "^24.5.0",
     "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.27.0"
+    "whatsapp-web.js": "^1.21.1"
   }
 }
