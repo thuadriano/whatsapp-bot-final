@@ -12,10 +12,24 @@ const client = new Client({
     }
 });
 
-// Exibe o QR Code se necessário
+const QRCode = require('qrcode');
 client.on('qr', qr => {
-    qrcode.generate(qr, { small: true });
+    QRCode.toDataURL(qr, (err, url) => {
+        if (err) return console.error('Erro ao gerar QR Code:', err);
+        
+        const html = `
+        <html>
+        <body>
+            <h1>Escaneie o QR Code</h1>
+            <img src="${url}" />
+        </body>
+        </html>`;
+
+        require('fs').writeFileSync('qr.html', html);
+        console.log('✅ QR Code gerado em qr.html. Abra o arquivo no navegador!');
+    });
 });
+
 
 // Salva a sessão quando autenticado
 client.on('authenticated', (session) => {
