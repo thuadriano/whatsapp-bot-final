@@ -1,25 +1,39 @@
-# Ignora dependências do projeto
+# 📦 Node.js dependencies
 node_modules/
 
-# Ignora arquivos de sessão do WhatsApp Web.js
+# 🔐 Arquivos de sessão do WhatsApp (NÃO subir)
 .wwebjs_auth/
 .wwebjs_cache/
 session.json
 
-# Ignora variáveis de ambiente (se você usar futuramente)
-.env
+# 📷 QR Code gerado
+public/qr.png
 
-# Ignora arquivos do Railway
-.railway/
-
-# Ignora arquivos do sistema
-.DS_Store
-Thumbs.db
-
-# Logs
+# 🪵 Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Configurações do sistema operacional
+# 💻 Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# 🧪 Arquivos de teste e coverage
+coverage/
+dist/
+build/
+
+# 🧪 Ambientes
+.env
+.env.local
+.env.*.local
+
+# 💻 Configurações de editores/IDEs
+.vscode/
+.idea/
 *.swp
+*.swo
+
+# 🚂 Railway ou Render configs locais
+.railway/
